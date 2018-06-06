@@ -1,0 +1,504 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package business;
+
+
+
+  
+
+
+import daoimpl.RolePermissionDAOImpl;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import models.PermissionModel;
+
+
+
+
+/**
+ *
+ * @author win8
+ */
+public class MainFrame extends javax.swing.JFrame {
+     
+   
+public  String MenuItem[]={"Employee Frame","Role Frame","Product Frame","Store Frame","Bank Frame","Company Frame","Broker Frame","Role Permission","Purchase Frame","Sell Frame","Sell Details Frame","PurchaseDetails Frame","ShopStore Frame","StoreStore Frame","ProfitAndLoss Frame"};
+//public static JFrame frames[]={new EmployeesFrame(),new RoleFrame(),new ProductFrame(),new StoreFrame(),new BankFrame(),new CompanyFrame(),new BrokerFrame(),new RolePermissionFrame(),new PurchaseFrame(),new SellFrame(),new SellDetailNewFrame(),new PurchaseDetailFrame(),new ShopStoreFrame(),new StoreStoreFrame(),new ProfitAndLossFrame() };
+public  JFrame frames[]={new EmployeesFrame(),new RoleFrame(),new ProductFrame(),new StoreFrame(),new BankFrame(),new CompanyFrame(),new BrokerFrame(),new RolePermissionFrame(),new PurchaseFrame(),new SellFrame(),new SellDetailNewFrame(),new PurchaseDetailFrame(),new ShopStoreFrame(),new StoreStoreFrame(),new ProfitAndLossFrame() };
+
+public BoxLayout box;
+ 
+
+    /** 
+     * Creates new form F2
+     */
+       public MainFrame() {
+        
+         //  frames[] = {new EmployeesFrame(),new RoleFrame(),new ProductFrame(),new StoreFrame(),new BankFrame(),new CompanyFrame(),new BrokerFrame(),new RolePermissionFrame(),new PurchaseFrame(),new SellFrame(),new SellDetailNewFrame(),new PurchaseDetailFrame(),new ShopStoreFrame(),new StoreStoreFrame(),new ProfitAndLossFrame() };
+           setExtendedState(JFrame.MAXIMIZED_BOTH);
+           setUndecorated(true);
+           initComponents();
+           //addMenu(); 
+           checkPermissions();
+       
+           userName.setText(LoginFrame.employeesModel.getUsername());
+           userRole.setText(LoginFrame.employeesModel.getRoleModel().getRole());
+    }
+
+     private void addMenu(){
+         JLabel[] labels = new JLabel[MenuItem.length];
+          this.box = new BoxLayout(jPanel_Menu, javax.swing.BoxLayout.Y_AXIS);
+            for (int i = 0; i <MenuItem.length ; i++) {
+                labels[i]=new JLabel(MenuItem[i]);
+                labels[i].setBackground(new java.awt.Color(11,18,29));
+                labels[i].setFont(new java.awt.Font("Century Gothic", 0, 20));
+                labels[i].setForeground(new java.awt.Color(255, 255, 255));
+                labels[i].setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                labels[i].setMaximumSize(new java.awt.Dimension(280, 90));
+                labels[i].setPreferredSize(new java.awt.Dimension(280, 90));
+                labels[i].setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(47, 55, 67)));
+                labels[i].setToolTipText(""+i);
+                labels[i].setOpaque(true);
+                jPanel_Menu.add(labels[i]);
+                labels[i].addMouseListener(new java.awt.event.MouseAdapter(){
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                        JLabel labels=(JLabel) e.getSource();
+                        labels.setBackground(new java.awt.Color(47, 55, 67));
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                        JLabel labels=(JLabel) e.getSource();
+                        labels.setBackground(new java.awt.Color(11,18,29));
+                    }
+
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        JLabel labels=(JLabel) e.getSource();
+                        int a=Integer.parseInt(labels.getToolTipText());
+                        frames[a].setVisible(true);
+                        
+                        for(int i=0; i<frames.length; i++){
+                            if(a == i){
+                                continue;
+                            }
+                            else{
+                               frames[a].dispose();
+                            }
+                        }
+                    }
+                    
+                });
+               jPanel_Menu.setLayout(box);               
+         }
+       
+     }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
+
+        jPanel_Center = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane_Menu = new javax.swing.JScrollPane();
+        jPanel_Menu = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel_UP = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        userRole = new javax.swing.JLabel();
+        userName = new javax.swing.JLabel();
+        jPanel_Down = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Airbnb");
+        setBackground(new java.awt.Color(255, 255, 255));
+        setMinimumSize(new java.awt.Dimension(1024, 600));
+        setSize(new java.awt.Dimension(1366, 768));
+
+        jPanel_Center.setLayout(new java.awt.BorderLayout());
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new java.awt.GridBagLayout());
+
+        jLabel6.setBackground(new java.awt.Color(47, 55, 67));
+        jLabel6.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Leet Solutions");
+        jLabel6.setOpaque(true);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.ipadx = 750;
+        gridBagConstraints.ipady = 500;
+        jPanel2.add(jLabel6, gridBagConstraints);
+
+        jPanel_Center.add(jPanel2, java.awt.BorderLayout.CENTER);
+
+        jScrollPane_Menu.setBorder(null);
+        jScrollPane_Menu.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane_Menu.setPreferredSize(new java.awt.Dimension(280, 2));
+
+        jPanel_Menu.setBackground(new java.awt.Color(11, 18, 29));
+        jPanel_Menu.setMaximumSize(new java.awt.Dimension(280, 768));
+        jPanel_Menu.setPreferredSize(new java.awt.Dimension(280, 768));
+        jPanel_Menu.setLayout(new javax.swing.BoxLayout(jPanel_Menu, javax.swing.BoxLayout.Y_AXIS));
+
+        jLabel3.setBackground(new java.awt.Color(140, 198, 62));
+        jLabel3.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("M E N U");
+        jLabel3.setMaximumSize(new java.awt.Dimension(280, 90));
+        jLabel3.setOpaque(true);
+        jLabel3.setPreferredSize(new java.awt.Dimension(280, 90));
+        jPanel_Menu.add(jLabel3);
+
+        jScrollPane_Menu.setViewportView(jPanel_Menu);
+
+        jPanel_Center.add(jScrollPane_Menu, java.awt.BorderLayout.WEST);
+
+        getContentPane().add(jPanel_Center, java.awt.BorderLayout.CENTER);
+
+        jPanel_UP.setBackground(new java.awt.Color(11, 18, 29));
+        jPanel_UP.setPreferredSize(new java.awt.Dimension(10, 150));
+        jPanel_UP.setLayout(null);
+
+        jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(140, 198, 62));
+        jLabel4.setText("Rice Inventory Management");
+        jPanel_UP.add(jLabel4);
+        jLabel4.setBounds(470, 60, 340, 31);
+
+        jLabel5.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(140, 198, 62));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
+        jPanel_UP.add(jLabel5);
+        jLabel5.setBounds(1300, 100, 60, 50);
+
+        jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Logout");
+        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+        jPanel_UP.add(jLabel1);
+        jLabel1.setBounds(1290, 10, 60, 30);
+
+        userRole.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        userRole.setForeground(new java.awt.Color(255, 255, 255));
+        userRole.setText("jLabel7");
+        jPanel_UP.add(userRole);
+        userRole.setBounds(1130, 10, 140, 30);
+
+        userName.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        userName.setForeground(new java.awt.Color(255, 255, 255));
+        userName.setText("jLabel7");
+        jPanel_UP.add(userName);
+        userName.setBounds(1000, 10, 110, 30);
+
+        getContentPane().add(jPanel_UP, java.awt.BorderLayout.PAGE_START);
+
+        jPanel_Down.setBackground(new java.awt.Color(140, 198, 62));
+        jPanel_Down.setPreferredSize(new java.awt.Dimension(10, 40));
+        jPanel_Down.setLayout(new java.awt.GridBagLayout());
+
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("© 2017 Leet Solutions | All Right Reserved ");
+        jPanel_Down.add(jLabel2, new java.awt.GridBagConstraints());
+
+        getContentPane().add(jPanel_Down, java.awt.BorderLayout.PAGE_END);
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        // TODO add your handling code here:
+         new LoginFrame().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+       this.dispose();
+       System.exit(0);
+    }//GEN-LAST:event_jLabel1MouseClicked
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Windows".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        //</editor-fold>
+
+        //</editor-fold>
+
+        //</editor-fold>
+
+        /* Create and display the form */
+        
+         
+        
+        java.awt.EventQueue.invokeLater(new Runnable() {
+           
+        
+            public void run() {                
+
+                new MainFrame().setVisible(true);
+            }
+        });
+        
+    }
+    
+    
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel_Center;
+    private javax.swing.JPanel jPanel_Down;
+    private javax.swing.JPanel jPanel_Menu;
+    private javax.swing.JPanel jPanel_UP;
+    private javax.swing.JScrollPane jScrollPane_Menu;
+    private javax.swing.JLabel userName;
+    private javax.swing.JLabel userRole;
+    // End of variables declaration//GEN-END:variables
+
+    
+    private void checkPermissions() {
+        ResultSet assignedPermissions = new RolePermissionDAOImpl().getAssignedPermissions(LoginFrame.employeesModel.getRoleModel().getRole()); 
+        ArrayList<PermissionModel> permissionList = new ArrayList<>();
+        System.out.println("Checking.");
+        try {
+            while(assignedPermissions.next())
+            {
+                PermissionModel permissionModel = new PermissionModel();
+                permissionModel.setPermission(assignedPermissions.getString("Permission"));
+                permissionList.add(permissionModel);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
+        JLabel[] labels = new JLabel[MenuItem.length];
+          this.box = new BoxLayout(jPanel_Menu, javax.swing.BoxLayout.Y_AXIS);
+            for (int i = 0; i <MenuItem.length ; i++) {
+                labels[i]=new JLabel(MenuItem[i]);
+                labels[i].setBackground(new java.awt.Color(11,18,29));
+                labels[i].setFont(new java.awt.Font("Century Gothic", 0, 20));
+                labels[i].setForeground(new java.awt.Color(255, 255, 255));
+                labels[i].setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                labels[i].setMaximumSize(new java.awt.Dimension(280, 90));
+                labels[i].setPreferredSize(new java.awt.Dimension(280, 90));
+                labels[i].setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(47, 55, 67)));
+                labels[i].setToolTipText(""+i);
+                labels[i].setOpaque(true);
+                for(PermissionModel permissionModel : permissionList)
+                {
+                    System.out.println(permissionModel.getPermission() +" "+MenuItem[i]);
+                    if(permissionModel.getPermission().equals("View_Employee") && MenuItem[i].equals("Employee Frame"))
+                    {
+                        jPanel_Menu.add(labels[i]);
+                    }
+                    if(permissionModel.getPermission().equals("View_Bank") && MenuItem[i].equals("Bank Frame"))
+                    {
+                        jPanel_Menu.add(labels[i]);
+                    }
+                    if(permissionModel.getPermission().equals("View_Role") && MenuItem[i].equals("Role Frame"))
+                    {
+                        jPanel_Menu.add(labels[i]);
+                    }
+                    if(permissionModel.getPermission().equals("View_Product") && MenuItem[i].equals("Product Frame"))
+                    {
+                        jPanel_Menu.add(labels[i]);
+                    }
+                    if(permissionModel.getPermission().equals("View_Store") && MenuItem[i].equals("Store Frame"))
+                    {
+                        jPanel_Menu.add(labels[i]);
+                    }
+                    if(permissionModel.getPermission().equals("View_Company") && MenuItem[i].equals("Company Frame"))
+                    {
+                        jPanel_Menu.add(labels[i]);
+                    }
+                    if(permissionModel.getPermission().equals("View_Broker") && MenuItem[i].equals("Broker Frame"))
+                    {
+                        jPanel_Menu.add(labels[i]);
+                    }
+                    if(permissionModel.getPermission().equals("View_Role_Permission") && MenuItem[i].equals("Role Permission"))
+                    {
+                        jPanel_Menu.add(labels[i]);
+                    }
+                    if(permissionModel.getPermission().equals("View_Purchase") && MenuItem[i].equals("Purchase Frame"))
+                    {
+                        jPanel_Menu.add(labels[i]);
+                    }
+                    if(permissionModel.getPermission().equals("View_Sell") && MenuItem[i].equals("Sell Frame"))
+                    {
+                        jPanel_Menu.add(labels[i]);
+                    }
+                    if(permissionModel.getPermission().equals("View_Sell_Detail") && MenuItem[i].equals("Sell Details Frame"))
+                    {
+  
+                        jPanel_Menu.add(labels[i]);
+                    }
+                    if(permissionModel.getPermission().equals("View_PurchaseDetail") && MenuItem[i].equals("PurchaseDetails Frame"))
+                    {
+                        jPanel_Menu.add(labels[i]);
+                    }
+                    if(permissionModel.getPermission().equals("View_ShopStore") && MenuItem[i].equals("ShopStore Frame"))
+                    {
+                        jPanel_Menu.add(labels[i]);
+                    }
+                    if(permissionModel.getPermission().equals("View_StoreStore") && MenuItem[i].equals("StoreStore Frame"))
+                    {
+                        jPanel_Menu.add(labels[i]);
+                    }
+                    if(permissionModel.getPermission().equals("View_ProfitAndLoss") && MenuItem[i].equals("ProfitAndLoss Frame"))
+                    {
+                        jPanel_Menu.add(labels[i]);
+                    }
+                    
+                    
+                    
+//                    if(permissionModel.getPermission().equals("View_Role") && MenuItem[i].equals("Role Frame"))
+//                    {
+//                        jPanel_Menu.add(labels[i]);
+//                    }
+//                    if(permissionModel.getPermission().equals("View_Role") && MenuItem[i].equals("Role Frame"))
+//                    {
+//                        jPanel_Menu.add(labels[i]);
+//                    }
+//                    if(permissionModel.getPermission().equals("View_Role") && MenuItem[i].equals("Role Frame"))
+//                    {
+//                        jPanel_Menu.add(labels[i]);
+//                    }
+//                    if(permissionModel.getPermission().equals("View_Role") && MenuItem[i].equals("Role Frame"))
+//                    {
+//                        jPanel_Menu.add(labels[i]);
+//                    }
+//                    if(permissionModel.getPermission().equals("View_Role") && MenuItem[i].equals("Role Frame"))
+//                    {
+//                        jPanel_Menu.add(labels[i]);
+//                    }
+//                    if(permissionModel.getPermission().equals("View_Role") && MenuItem[i].equals("Role Frame"))
+//                    {
+//                        jPanel_Menu.add(labels[i]);
+//                    }
+//                    if(permissionModel.getPermission().equals("View_Role") && MenuItem[i].equals("Role Frame"))
+//                    {
+//                        jPanel_Menu.add(labels[i]);
+//                    }
+//                    if(permissionModel.getPermission().equals("View_Role") && MenuItem[i].equals("Role Frame"))
+//                    {
+//                        jPanel_Menu.add(labels[i]);
+//                    }
+//                    if(permissionModel.getPermission().equals("VIEW_SPECIALIZATION"))
+//                    {
+//                        jPanel_Menu.add(labels[i]);
+//                    }
+//                    if(permissionModel.getPermission().equals("VIEW_TEST"))
+//                    {
+//                        jPanel_Menu.add(labels[i]);
+//                    }
+//                    if(permissionModel.getPermission().equals("VIEW_USER"))
+//                    {
+//                        jPanel_Menu.add(labels[i]);
+//                    }
+//                    if(permissionModel.getPermission().equals("VIEW_USER_TYPE"))
+//                    {
+//                        jPanel_Menu.add(labels[i]);
+//                    }
+//                    if(permissionModel.getPermission().equals("VIEW_WARD"))
+//                    {
+//                        jPanel_Menu.add(labels[i]);
+//                    }
+//                    if(permissionModel.getPermission().equals("VIEW_PAYMENT"))
+//                    {
+//                        jPanel_Menu.add(labels[i]);
+//                    }
+                }
+                
+                labels[i].addMouseListener(new java.awt.event.MouseAdapter(){
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                        JLabel labels=(JLabel) e.getSource();
+                        labels.setBackground(new java.awt.Color(47, 55, 67));
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                        JLabel labels=(JLabel) e.getSource();
+                        labels.setBackground(new java.awt.Color(11,18,29));
+                    }
+
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        JLabel labels=(JLabel) e.getSource();
+                        int a=Integer.parseInt(labels.getToolTipText());
+                        frames[a].setVisible(true);
+                    }
+                    
+                });
+               jPanel_Menu.setLayout(box);               
+         }
+    }
+    
+}
